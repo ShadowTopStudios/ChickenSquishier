@@ -14,6 +14,9 @@ public class World
 	protected SpriteBatch mMeteorBatch;
 	protected SpriteBatch mChickBatch;
 	
+	protected AnimalContainer mAnimals;
+	
+	
 	public World(GameScene scene)
 	{
 		mGameScene = scene;
@@ -23,6 +26,8 @@ public class World
 		mShadowBatch = new SpriteBatch();
 		mMeteorBatch = new SpriteBatch();
 		mChickBatch = new SpriteBatch();
+		
+		mAnimals = new AnimalContainer(this);
 	}
 	public void update(float delta)
 	{
@@ -49,5 +54,10 @@ public class World
 	public void addTouch(float x,float y,int pointer)
 	{
 		//add touch to animal container
+		mAnimals.addTouch(x,y,pointer);
+	}
+	public void deleteTouch(int pointer)
+	{
+		mAnimals.deleteTouch(pointer);
 	}
 }

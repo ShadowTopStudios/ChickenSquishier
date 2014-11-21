@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class AnimalContainer
 {
 	public static final int SIZE=25;
+	public static final int SPACING = 11;
 	public World mWorld;
 	public Animal[] mAnimals;
 	protected int[] mUpdateLoop;
@@ -22,7 +23,7 @@ public class AnimalContainer
 			for(int x=1;x<6;x++)
 			{
 				mUpdateLoop[index]=index;
-				mAnimals[index]=new Chick();
+				mAnimals[index]=new Chick(x*SPACING,y*SPACING,this,index);
 				index++;
 			}
 		}

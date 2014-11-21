@@ -90,20 +90,20 @@ public class GameScene extends Scene implements InputProcessor,Screen{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		mController.addTouch((float)screenX/mPx, (float)(mHeight-screenY)/mPy, pointer);
+		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		mController.deleteTouch(pointer);
+		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
+		mController.addTouch((float)screenX/mPx, (float)(mHeight-screenY)/mPy, pointer);
+		return true;
 	}
 
 	@Override

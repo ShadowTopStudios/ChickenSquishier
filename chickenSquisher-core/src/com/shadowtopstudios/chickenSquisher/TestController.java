@@ -11,4 +11,8 @@ public class TestController
 	{
 		mWorld.addTouch(x,y,pointer);
 	}
+	public void deleteTouch(int pointer)
+	{
+		mWorld.deleteTouch(pointer);
+	}
 }
