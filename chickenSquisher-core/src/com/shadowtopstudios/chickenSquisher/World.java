@@ -46,5 +46,8 @@ public class World
 		//meteor container drawMeteors
 		mMeteorBatch.end();
 	}
-	
+	public void addTouch(float x,float y,int pointer)
+	{
+		//add touch to animal container
+	}
 }

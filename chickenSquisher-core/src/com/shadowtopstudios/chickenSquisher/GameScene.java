@@ -3,8 +3,9 @@ package com.shadowtopstudios.chickenSquisher;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 
-public class GameScene implements InputProcessor,Screen{
+public class GameScene extends Scene implements InputProcessor,Screen{
 
 	protected World mWorld;
 	public chickenSquisher wrapper;
@@ -12,15 +13,20 @@ public class GameScene implements InputProcessor,Screen{
 	public float mPy;
 	protected int mWidth;
 	protected int mHeight;
+	
+	protected TestController mController; // change to controller when done testing
 	public GameScene(chickenSquisher w)
 	{
 		wrapper = w;
 		mWorld = new World(this);
+		mController = new TestController(mWorld);
 		
 	}
 	@Override
 	public void render(float delta)
 	{
+		Gdx.gl.glClearColor(0,0,0,1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		mWorld.update(delta);
 		mWorld.draw();
 	}
@@ -110,6 +116,11 @@ public class GameScene implements InputProcessor,Screen{
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public void buttonPressed(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
