@@ -6,7 +6,7 @@ import com.shadowtopstudios.chickenSquisher.chickenSquisher;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new chickenSquisher(), config);
+		//LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		new LwjglApplication(new chickenSquisher(),"Chicken Squisher!",500,460);
 	}
 }

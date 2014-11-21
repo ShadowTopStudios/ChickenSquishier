@@ -12,7 +12,7 @@ public class chickenSquisher extends Game {
 	
 	@Override
 	public void create () {
-		mGameScene = new GameScene();
+		mGameScene = new GameScene(this);
 		setScreen(mGameScene);
 	}
 

@@ -1,37 +1,48 @@
 package com.shadowtopstudios.chickenSquisher;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
 public class GameScene implements InputProcessor,Screen{
 
-	World mWorld;
-	
-	public GameScene()
+	protected World mWorld;
+	public chickenSquisher wrapper;
+	public float mPx;
+	public float mPy;
+	protected int mWidth;
+	protected int mHeight;
+	public GameScene(chickenSquisher w)
 	{
-		mWorld = new World();
+		wrapper = w;
+		mWorld = new World(this);
+		
 	}
 	@Override
 	public void render(float delta)
 	{
-		
+		mWorld.update(delta);
+		mWorld.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		mHeight = height;
+		mWidth = width;
+		mPx = mWidth/mWorld.CAMERA_WIDTH;
+		mPy = mHeight/mWorld.CAMERA_HEIGHT;
 		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(this);
 		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(null);
 		
 	}
 
