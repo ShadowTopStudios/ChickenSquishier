@@ -10,7 +10,7 @@ public class AnimalContainer
 	public Animal[] mAnimals;
 	protected int[] mUpdateLoop;
 	protected int mUpdateSize=SIZE;
-	protected float mRadRadSquared;
+	protected float mRadRadSquared=25;
 	
 	public AnimalContainer(World w)
 	{
@@ -27,6 +27,9 @@ public class AnimalContainer
 				index++;
 			}
 		}
+		//mUpdateLoop[index]=index;
+		//mAnimals[index]=new Chick(30,30,this,index);
+		//mUpdateSize = 1;
 	}
 	public int collisionWithOthers(float x,float y,float id)
 	{

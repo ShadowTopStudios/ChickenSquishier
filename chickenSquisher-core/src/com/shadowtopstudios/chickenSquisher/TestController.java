@@ -9,6 +9,7 @@ public class TestController
 	}
 	public void addTouch(float x,float y,int pointer)
 	{
+		//System.out.println(x);
 		mWorld.addTouch(x,y,pointer);
 	}
 	public void deleteTouch(int pointer)

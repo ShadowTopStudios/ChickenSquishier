@@ -32,7 +32,7 @@ public class World
 	public void update(float delta)
 	{
 		//mMeteorContainer.update(delta);
-		//mChickContainer.update(delta);
+		mAnimals.update(delta);
 	}
 	public void draw()
 	{
@@ -43,7 +43,7 @@ public class World
 		
 		mChickBatch.begin();
 		mChickBatch.setProjectionMatrix(mCamera.combined);
-		//chick container draw
+		mAnimals.draw(mChickBatch);
 		mChickBatch.end();
 		
 		mMeteorBatch.begin();

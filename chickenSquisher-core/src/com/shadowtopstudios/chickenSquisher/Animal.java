@@ -2,6 +2,7 @@ package com.shadowtopstudios.chickenSquisher;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -22,11 +23,14 @@ public abstract class Animal
 	protected Random rand;
 	protected int mId;
 	
+	protected int mStrength;
+	
 	
 	public void draw(SpriteBatch batch)
 	{
 		//batch.draw(mTexture, mX, mY, 0, 0, mWidth, mWidth, 1, 1);
-		batch.draw(mTexture, mX, mY, 0.f, 0.f, mWidth, mWidth, 1.f, 1.f, mAngle, 0, 0, (int)mWidth, (int)mWidth, false, false);
+		//batch.draw(mTexture, mX, mY, mX, mY, mWidth, mWidth, 1.f, 1.f, mAngle, 0, 0, (int)mWidth, (int)mWidth, false, false);
+		batch.draw(mTexture, mX, mY, mWidth, -mWidth);
 	}
 	public abstract boolean update(float delta);
 	
@@ -35,48 +39,107 @@ public abstract class Animal
 		double radians = ((double)mAngle/180)*Math.PI;
 		mDx = (float)(Math.cos(radians)*mSpeed);
 		mDy = (float)(Math.sin(radians)*mSpeed);
+		//System.out.println(radians);
+		//System.out.println(mDx);
+		//System.out.println(mDy);
+		//System.out.println();
 	}
 	public float getAngle(float x,float y)
 	{
 		float deltaX = x-mX;
 		float deltaY = y-mY;
-		float angle = (float)(Math.atan2((double)deltaY,(double)deltaX));
+		float angle = (float)(Math.atan2((double)deltaY,(double)deltaX)*(180.f/Math.PI));
 		if(mAngle < 0)
 		{
 			angle = 360 -(-angle);
 		}
 		return angle;
 	}
-	public void moveIfFree()
+	public int getStrength()
+	{
+		return mStrength;
+	}
+	public int moveIfFree()
 	{
 		int id;
+		int originalCollision;
 		id = mOthers.collisionWithOthers(mX+mDx,mY+mDy,mId);
+		originalCollision = id;
 		if(id == -1)
 		{
 			mX+=mDx;
 			mY+=mDy;
-			return;
+			return -1;
 		}
+		
 		id = mOthers.collisionWithOthers(mX+mDx,mY,mId);
 		if(id == -1)
 		{
-			mX+=mDx;
-			return;
+			
+			return -1;
 		}
 		id = mOthers.collisionWithOthers(mX,mY+mDy,mId);
 		if(id==-1)
 		{
-			mY+=mDy;
-			return;
+			
+			return -1;
 		}
-		return;
+		if(mOthers.mAnimals[originalCollision].getStrength()>mStrength)
+		{
+			Touch otherParent = mOthers.mAnimals[originalCollision].getParent();
+			mParent.mX = otherParent.mX;
+			mParent.mY = otherParent.mY;
+			mParent.mPointer = otherParent.mPointer;
+		}
+		else
+		{
+			mOthers.mAnimals[originalCollision].pleaseMoveX(mDx, mId);
+			mOthers.mAnimals[originalCollision].pleaseMoveY(mDy, mId);
+			mX+=mDx*.5f;
+			mY+=mDy*.5f;
+		}
+		//System.out.println("we didnt move!");
+		return id;
 	}
+	public Touch getParent()
+	{
+		return mParent;
+	}
+	public void pleaseMoveX(float x,int other)
+	{
+		int id;
+		id = mOthers.collisionWithOthers(mX+x, mY, mId);
+		mX +=x;
+		if(id !=other && id != mId && id !=-1)
+		{
+			mOthers.mAnimals[id].pleaseMoveX(x,mId);
+		}
+	}
+	public void pleaseMoveY(float y,int other)
+	{
+		int id;
+		id = mOthers.collisionWithOthers(mX, mY+y, mId);
+		mY +=y;
+		if(id !=other && id != mId && id !=-1)
+		{
+			mOthers.mAnimals[id].pleaseMoveY(y,mId);
+		}
+	}
+		
 	public void addTouch(float x,float y,int pointer)
 	{
+		//System.out.println("in addTouch");
 		if(mParent.mPointer == pointer)
 		{
 			mParent.mX = x;
 			mParent.mY = y;
+			return;
+		}
+		if(mParent.mPointer == -1)
+		{
+			mParent.mX = x;
+			mParent.mY = y;
+			mParent.mPointer = pointer;
 			return;
 		}
 		if(distanceFromMe(mParent.mX,mParent.mY) >distanceFromMe(x,y))
