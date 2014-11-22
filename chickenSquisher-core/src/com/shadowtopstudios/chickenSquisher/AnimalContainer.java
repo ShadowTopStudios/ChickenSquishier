@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AnimalContainer
 {
-	public static final int SIZE=25;
-	public static final int SPACING = 11;
+	public static final int SIZE=20;
+	public static final int SPACING = 12;
 	public World mWorld;
 	public Animal[] mAnimals;
 	protected int[] mUpdateLoop;
 	protected int mUpdateSize=SIZE;
-	protected float mRadRadSquared=25;
+	protected float mRadRadSquared=3;
 	
 	public AnimalContainer(World w)
 	{
@@ -20,7 +20,7 @@ public class AnimalContainer
 		int index = 0;
 		for(int y = 1;y<6;y++)
 		{
-			for(int x=1;x<6;x++)
+			for(int x=1;x<5;x++)
 			{
 				mUpdateLoop[index]=index;
 				mAnimals[index]=new Chick(x*SPACING,y*SPACING,this,index);

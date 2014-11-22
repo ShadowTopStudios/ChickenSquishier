@@ -24,7 +24,13 @@ public abstract class Animal
 	protected int mId;
 	
 	protected int mStrength;
-	
+	public boolean mMoving=true;
+	public static final int smallRad = 7;
+	public static final int bigRad = 15;
+	public int mMoveRad = smallRad;
+	public int mTimer;
+	public int mSkitterMax;
+	public int mSkitter;
 	
 	public void draw(SpriteBatch batch)
 	{
@@ -84,7 +90,7 @@ public abstract class Animal
 			
 			return -1;
 		}
-		if(mOthers.mAnimals[originalCollision].getStrength()>mStrength)
+		/*if(mOthers.mAnimals[originalCollision].getStrength()>mStrength)
 		{
 			Touch otherParent = mOthers.mAnimals[originalCollision].getParent();
 			mParent.mX = otherParent.mX;
@@ -97,7 +103,7 @@ public abstract class Animal
 			mOthers.mAnimals[originalCollision].pleaseMoveY(mDy, mId);
 			mX+=mDx*.5f;
 			mY+=mDy*.5f;
-		}
+		}*/
 		//System.out.println("we didnt move!");
 		return id;
 	}
@@ -105,25 +111,39 @@ public abstract class Animal
 	{
 		return mParent;
 	}
-	public void pleaseMoveX(float x,int other)
+	public float pleaseMoveX(float x,int other)
 	{
 		int id;
 		id = mOthers.collisionWithOthers(mX+x, mY, mId);
-		mX +=x;
 		if(id !=other && id != mId && id !=-1)
 		{
-			mOthers.mAnimals[id].pleaseMoveX(x,mId);
+			if(distanceFromMe(mX+x,mY)>distanceFromMe(mX,mY))
+			{
+				mX+=x;
+				return x;
+			}
+			return 0.f;
 		}
+		mX+=x;
+		return x;
 	}
-	public void pleaseMoveY(float y,int other)
+	public float pleaseMoveY(float y,int other)
 	{
 		int id;
 		id = mOthers.collisionWithOthers(mX, mY+y, mId);
 		mY +=y;
 		if(id !=other && id != mId && id !=-1)
 		{
-			mOthers.mAnimals[id].pleaseMoveY(y,mId);
+			//mOthers.mAnimals[id].pleaseMoveY(y,mId);
+			if(distanceFromMe(mX,mY+y)>distanceFromMe(mX,mY))
+			{
+				mY+=y;
+				return y;
+			}
+			return 0.f;
 		}
+		mY+=y;
+		return y;
 	}
 		
 	public void addTouch(float x,float y,int pointer)

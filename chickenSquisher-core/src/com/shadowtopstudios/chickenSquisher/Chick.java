@@ -7,11 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Chick extends Animal
 {
-	public boolean mMoving=true;
-	public static final int smallRad = 7;
-	public static final int bigRad = 15;
-	public int mMoveRad = smallRad;
-	public int mTimer;
 	
 	public Chick(int x,int y,AnimalContainer a,int id)
 	{
@@ -21,52 +16,74 @@ public class Chick extends Animal
 		this.mOthers = a;
 		this.mId = id;
 		this.mStrength = id;
-		this.mSpeed = 0.3f + ((float)rand.nextInt(10)/8.f);
-		this.mRadius = 2.5f;
-		this.mWidth = 5.f;
+		this.mSpeed = 0.2f + ((float)rand.nextInt(4)/10.f);
+		this.mRadius = 1.0f;
+		this.mWidth = 4.f;
 		this.mParent = new Touch(-1,-1,-1);
 		this.getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
-		this.mTexture = new Texture(Gdx.files.internal("block.png"));
+		this.mTexture = new Texture(Gdx.files.internal("chickie.png"));
 		mTimer = 120;
+		mSkitterMax = 10+rand.nextInt(10);
+		mSkitter = mSkitterMax;
 	}
 		
 	@Override
 	public boolean update(float delta)
 	{
 		//System.out.println(this.mParent.mX);
+		
 		if(distanceFromParent(mMoveRad))
 		{
-			if(this.mParent.mPointer !=-1)
-			{
-				mMoving = false;
-				mMoveRad = bigRad;
+			mMoving = false;
+			mMoveRad = bigRad;
 				
-				return true;
-			}
-			else
+			mTimer--;
+			if(mTimer <=0)
 			{
-				mMoving=false;
-				mMoveRad = bigRad;
-				mTimer--;
-				if(mTimer <=0)
+				if(mParent.mPointer == -1)
 				{
 					getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
-					mTimer = 100+rand.nextInt(40);
 				}
+				mTimer = 80+rand.nextInt(30);
 			}
+			return true;
 		}
 		else
 		{
 			mMoving = true;
 			mMoveRad = smallRad;
 		}
-		this.mAngle = this.getAngle(mParent.mX, mParent.mY);
-		//System.out.println(this.mAngle);
+		
+		this.mAngle = (this.mAngle-5)+rand.nextInt(10);
 		this.findSlope();
 		int id = this.moveIfFree();
-		if(this.mParent.mPointer == -1 && id !=-1)
+		if(id !=-1 && this.mOthers.mAnimals[id].mMoving == false)
+		{
+			float x=this.mOthers.mAnimals[id].pleaseMoveX(mDx, mId);
+			float y=this.mOthers.mAnimals[id].pleaseMoveY(mDy, mId);
+			System.out.println("x is:");
+			System.out.println(x);
+			System.out.println();
+			mX+=x;
+			mY+=y;
+		}
+		else if(id != -1 && this.mOthers.mAnimals[id].getStrength() > mStrength)
+		{
+			Touch other = this.mOthers.mAnimals[id].getParent();
+			this.mParent.mX = other.mX-2 +rand.nextInt(4);
+			this.mParent.mY = other.mY-2 +rand.nextInt(4);
+			this.mParent.mPointer = other.mPointer;
+		}
+		else if(this.mParent.mPointer == -1 && id !=-1)
 		{
 			getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
+		}
+		
+		mSkitter--;
+		if(mSkitter <=0)
+		{
+			mSkitter = mSkitterMax;
+			this.mAngle = this.getAngle(mParent.mX, mParent.mY);
 		}
 		return true;
 		
