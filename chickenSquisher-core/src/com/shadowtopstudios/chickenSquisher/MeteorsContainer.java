@@ -24,9 +24,9 @@ public class MeteorsContainer {
 		mUpdateSize = 0;
 
 		for(int i = 0; i < METEOR_ARRAY_SIZE; i++){
-			float sSpeed = (float)Meteor.random(2,4)/10.f;//screen width
-			float mSpeed = (float)Meteor.random(2,4)/10.f;//screen height
-			int startSize = Meteor.random(55,65);
+			float sSpeed = (float)Meteor.random(3,6)/10.f;//screen width
+			float mSpeed = (float)Meteor.random(3,6)/10.f;//screen height
+			int startSize = Meteor.random(65,75);
 			int meteorSize = Meteor.random(10,20);
 			int collisionSize = Meteor.random(5,9);
 			int spawnX = Meteor.random(5,85);

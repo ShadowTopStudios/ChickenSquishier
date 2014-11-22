@@ -1,6 +1,7 @@
 package com.shadowtopstudios.chickenSquisher;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -50,7 +51,16 @@ public class World
 	{
 		mShadowBatch.begin();
 		mShadowBatch.setProjectionMatrix(mCamera.combined);
+		
+		//grab the color and set alpha to 1 for no transparency
+		Color c = mShadowBatch.getColor();
+		mShadowBatch.setColor(c.r, c.g, c.b, 1f);
+		
 		mShadowBatch.draw(mBackground,0,0,CAMERA_WIDTH,CAMERA_HEIGHT);
+		
+		
+		c = mShadowBatch.getColor();
+		mShadowBatch.setColor(c.r, c.g, c.b, .3f);//set alpha to 0.3
 		mMeteorsContainer.drawShadow(mShadowBatch);
 		//meteor container draw shadows
 		mShadowBatch.end();

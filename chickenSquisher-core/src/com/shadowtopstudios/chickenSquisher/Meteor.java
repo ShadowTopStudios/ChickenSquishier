@@ -67,7 +67,7 @@ public class Meteor {
 		keepUpdating = true;
 	}
 	public void draw(SpriteBatch mBatch){
-		mBatch.draw(mIMG, spawnX - (sizeX / 2), spawnY - (sizeY / 2), sizeX + 8, sizeY + 8);
+		mBatch.draw(mIMG, spawnX - (sizeX / 2), spawnY - (sizeY / 2), sizeX + 3, sizeY + 3);
 	}
 	
 	public void drawShadow(SpriteBatch sBatch){
