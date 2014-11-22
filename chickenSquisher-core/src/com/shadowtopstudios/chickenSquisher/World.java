@@ -20,6 +20,7 @@ public class World
 	
 	protected AnimalContainer mAnimals;
 	
+	protected MeteorsContainer mMeteorsContainer;
 	
 	public World(GameScene scene)
 	{
@@ -30,17 +31,19 @@ public class World
 		mShadowBatch = new SpriteBatch();
 		mMeteorBatch = new SpriteBatch();
 		mChickBatch = new SpriteBatch();
+		mMeteorsContainer = new MeteorsContainer(this);
 		
 		mAnimals = new AnimalContainer(this);
 		mBackground = new Texture(Gdx.files.internal("Background_desert.png"));
 	}
 	public void update(float delta)
 	{
-		//mMeteorContainer.update(delta);
+		mMeteorsContainer.update(delta);
 		mAnimals.update(delta);
 	}
 	public void checkChicks(float x,float y,float radius)
 	{
+		Gdx.app.log("check chicks:", "spawnX: " + x + " spawnY: " + y + " radius: " + radius);
 		mAnimals.killChicks(x,y,radius);
 	}
 	public void draw()
@@ -48,6 +51,7 @@ public class World
 		mShadowBatch.begin();
 		mShadowBatch.setProjectionMatrix(mCamera.combined);
 		mShadowBatch.draw(mBackground,0,0,CAMERA_WIDTH,CAMERA_HEIGHT);
+		mMeteorsContainer.drawShadow(mShadowBatch);
 		//meteor container draw shadows
 		mShadowBatch.end();
 		
@@ -58,6 +62,7 @@ public class World
 		
 		mMeteorBatch.begin();
 		mMeteorBatch.setProjectionMatrix(mCamera.combined);
+		mMeteorsContainer.draw(mMeteorBatch);
 		//meteor container drawMeteors
 		mMeteorBatch.end();
 	}

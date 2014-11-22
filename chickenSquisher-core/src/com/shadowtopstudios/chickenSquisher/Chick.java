@@ -49,7 +49,7 @@ public class Chick extends Animal
 				}
 				mTimer = 80+rand.nextInt(30);
 			}
-			return true;
+			return mAlive;
 		}
 		else
 		{

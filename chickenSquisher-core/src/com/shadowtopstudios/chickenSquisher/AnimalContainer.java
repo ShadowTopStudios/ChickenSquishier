@@ -28,7 +28,7 @@ public class AnimalContainer
 				index++;
 			}
 		}
-		mRadius = mAnimals[index].mRadius;
+		mRadius = mAnimals[0].mRadius;
 		//mUpdateLoop[index]=index;
 		//mAnimals[index]=new Chick(30,30,this,index);
 		//mUpdateSize = 1;
