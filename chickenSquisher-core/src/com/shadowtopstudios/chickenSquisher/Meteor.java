@@ -39,8 +39,8 @@ public class Meteor {
 		savedSizeY = startsize;
 		spawnX = spawnx;
 		spawnY = spawny;
-		meteorSize = 40;
-		collisionSize = 25;
+		meteorSize = meteorsize;
+		collisionSize = collisionsize;
 		switchToMeteor = false;
 		sIMG = new Texture("shadow" + randIMG + ".png");
 		mIMG = new Texture("meteor" + randIMG + ".png");
@@ -67,7 +67,7 @@ public class Meteor {
 		keepUpdating = true;
 	}
 	public void draw(SpriteBatch mBatch){
-		mBatch.draw(mIMG, spawnX - (sizeX / 2), spawnY - (sizeY / 2), sizeX + 3, sizeY + 3);
+		mBatch.draw(mIMG, spawnX - (sizeX / 2), spawnY - (sizeY / 2), sizeX + 5, sizeY + 5);
 	}
 	
 	public void drawShadow(SpriteBatch sBatch){
