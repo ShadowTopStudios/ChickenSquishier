@@ -1,6 +1,8 @@
 package com.shadowtopstudios.chickenSquisher;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.shadowtopstudios.chickenSquisher.World.AnimalType;
+import com.shadowtopstudios.chickenSquisher.World.ParticleType;
 
 public class AnimalContainer
 {
@@ -13,20 +15,58 @@ public class AnimalContainer
 	protected float mRadRadSquared=7;
 	protected float mRadius;
 	
-	public AnimalContainer(World w)
+	public AnimalContainer(World w,AnimalType type)
 	{
 		mWorld = w;
 		mAnimals = new Animal[SIZE];
 		mUpdateLoop = new int[SIZE];
 		int index = 0;
-		for(int y = 1;y<6;y++)
+		switch(type)
 		{
-			for(int x=1;x<5;x++)
+		case chick:
+			for(int y = 1;y<6;y++)
 			{
-				mUpdateLoop[index]=index;
-				mAnimals[index]=new Chick(x*SPACING,y*SPACING,this,index);
-				index++;
+				for(int x=1;x<5;x++)
+				{
+					mUpdateLoop[index]=index;
+					mAnimals[index]=new Chick(x*SPACING,y*SPACING,this,index);
+					index++;
+				}
 			}
+			break;
+		case bunny:
+			for(int y = 1;y<6;y++)
+			{
+				for(int x=1;x<5;x++)
+				{
+					mUpdateLoop[index]=index;
+					mAnimals[index]=new Bunny(x*SPACING,y*SPACING,this,index);
+					index++;
+				}
+			}
+			break;
+		case turtle:
+			for(int y = 1;y<6;y++)
+			{
+				for(int x=1;x<5;x++)
+				{
+					mUpdateLoop[index]=index;
+					mAnimals[index]=new Turtle(x*SPACING,y*SPACING,this,index);
+					index++;
+				}
+			}
+			break;
+		default:
+			for(int y = 1;y<6;y++)
+			{
+				for(int x=1;x<5;x++)
+				{
+					mUpdateLoop[index]=index;
+					mAnimals[index]=new Chick(x*SPACING,y*SPACING,this,index);
+					index++;
+				}
+			}
+			break;
 		}
 		mRadius = mAnimals[0].mRadius;
 		//mUpdateLoop[index]=index;
@@ -53,7 +93,15 @@ public class AnimalContainer
 		{
 			if(mAnimals[mUpdateLoop[i]].distanceFromMe(x,y)<((rad+mRadius)*(rad+mRadius)))
 			{
-				mAnimals[mUpdateLoop[i]].mAlive = false;
+				mAnimals[mUpdateLoop[i]].mHp--;
+				if(mAnimals[mUpdateLoop[i]].mHp <=0)
+				{
+					mAnimals[mUpdateLoop[i]].mAlive = false;
+				}
+				for(int j=0;j<5;j++)
+				{
+					mWorld.addParticle(mAnimals[mUpdateLoop[i]].mX,mAnimals[mUpdateLoop[i]].mY,ParticleType.feather);
+				}
 			}
 		}
 	}

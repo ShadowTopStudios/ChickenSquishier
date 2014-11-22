@@ -30,6 +30,7 @@ public abstract class Animal
 	public int mTimer;
 	public int mSkitterMax;
 	public int mSkitter;
+	public int mHp;
 	
 	
 	public void draw(SpriteBatch batch)

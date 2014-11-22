@@ -6,10 +6,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Chick extends Animal
+public class Turtle extends Animal
 {
-	
-	public Chick(int x,int y,AnimalContainer a,int id)
+	public Turtle(int x,int y,AnimalContainer a,int id)
 	{
 		this.rand = new Random();
 		this.mX = (float)x;
@@ -17,18 +16,18 @@ public class Chick extends Animal
 		this.mOthers = a;
 		this.mId = id;
 		this.mStrength = id;
-		this.mSpeed = 0.2f + ((float)rand.nextInt(4)/10.f);
+		this.mSpeed = 0.05f + ((float)rand.nextInt(3)/10.f);
 		this.mRadius = 1.5f;
 		this.mWidth = 6.f;
 		this.mParent = new Touch(-1,-1,-1);
 		this.getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
-		this.mTexture = new Sprite(new Texture(Gdx.files.internal("chickie.png")));
+		this.mTexture = new Sprite(new Texture(Gdx.files.internal("turtle.png")));
 		this.mTexture.setSize(this.mWidth, this.mWidth);
 		mTexture.setOriginCenter();
 		mTimer = 120;
-		mSkitterMax = 20+rand.nextInt(20);
+		mSkitterMax = 15+rand.nextInt(20);
 		mSkitter = mSkitterMax;
-		mHp = 1;
+		mHp = 2;
 	}
 		
 	@Override
@@ -48,7 +47,7 @@ public class Chick extends Animal
 				{
 					getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
 				}
-				mTimer = 80+rand.nextInt(30);
+				mTimer = 90+rand.nextInt(50);
 			}
 			return mAlive;
 		}
@@ -58,7 +57,7 @@ public class Chick extends Animal
 			mMoveRad = smallRad;
 		}
 		
-		this.mAngle = (this.mAngle-7)+rand.nextInt(14);
+		this.mAngle = (this.mAngle-3)+rand.nextInt(6);
 		this.findSlope();
 		int id = this.moveIfFree();
 		if(id != -1 && this.mOthers.mAnimals[id].getStrength() > mStrength)
@@ -85,5 +84,4 @@ public class Chick extends Animal
 		return mAlive;
 		
 	}
-
 }

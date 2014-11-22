@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.shadowtopstudios.chickenSquisher.World.AnimalType;
+import com.shadowtopstudios.chickenSquisher.World.WorldType;
 
 public class GameScene extends Scene implements InputProcessor,Screen{
 
@@ -18,7 +20,7 @@ public class GameScene extends Scene implements InputProcessor,Screen{
 	public GameScene(chickenSquisher w)
 	{
 		wrapper = w;
-		mWorld = new World(this);
+		mWorld = new World(this,AnimalType.bunny,WorldType.grass);
 		mController = new TestController(mWorld);
 		
 	}
