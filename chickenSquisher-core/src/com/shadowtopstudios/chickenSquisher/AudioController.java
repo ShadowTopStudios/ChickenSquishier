@@ -24,7 +24,8 @@ public class AudioController {
 	
 	public void playBackgroundMusic(String soundName, float volume){
 		sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundName + ".ogg"));
-		long id = sound.play(volume);
-		sound.play(volume);
+		//long id = sound.play(volume);
+		sound.loop(volume);
+		//sound.play(volume);
 	}
 }
