@@ -18,7 +18,7 @@ public class MeteorsContainer {
 	
 	public MeteorsContainer(World world){//remove all instances of test
 		mWorld = world;
-
+	
 		meteorsArray = new Meteor[METEOR_ARRAY_SIZE];
 		randomMeteorArray = new int[10];
 		mUpdateSize = 0;
@@ -33,6 +33,7 @@ public class MeteorsContainer {
 			int spawnY = RandomNumber.random(5,55);
 			meteorsArray[i] = new Meteor(i, sSpeed, mSpeed, startSize, spawnX, spawnY, meteorSize, collisionSize);	
 		}
+		
 	}
 	
 	public void genMeteor()
@@ -71,9 +72,10 @@ public class MeteorsContainer {
 			keepUpdating = meteorsArray[randomMeteorArray[start]].update(delta);	
 			if(!keepUpdating){
 				mWorld.checkChicks(meteorsArray[randomMeteorArray[start]].spawnX, meteorsArray[randomMeteorArray[start]].spawnY, (meteorsArray[randomMeteorArray[start]].sizeX / 2));
+				mWorld.audioController.playSoundEffect("explosion", 1.0f); //mWorld.audioController
+				//mWorld.audioController.androidSound.play();
 				randomMeteorArray[start] = randomMeteorArray[mUpdateSize - 1];
 				mUpdateSize--;
-				
 			}else{
 				start++;
 			}
