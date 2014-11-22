@@ -1,15 +1,14 @@
 package com.shadowtopstudios.chickenSquisher;
 
-import com.badlogic.gdx.Gdx;
+//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.RandomXS128;
 
 public class Meteor {
-	static public RandomXS128 random = new RandomXS128();
 	
 	protected int mId;
 	protected float shadowSpeed;
+	protected float savedShadowSpeed;
 	protected float meteorSpeed;
 	protected float sizeX;
 	protected float sizeY;
@@ -24,15 +23,14 @@ public class Meteor {
 	protected boolean switchToMeteor;
 	protected boolean keepUpdating=false;
 	
-	/** Returns a random number between start and end. */
-	static public int random (int start, int end) {
-		return start + random.nextInt(end - start + 1);
-	}
+	protected int timerMax = 1;
+	protected int timer = timerMax;
 	
 	public Meteor(int id, float sspeed, float mspeed, float startsize, float spawnx, float spawny, float meteorsize, float collisionsize){
-		int randIMG = random(1,4);
+		int randIMG = RandomNumber.random(1,4);
 		mId = id;
 		shadowSpeed = sspeed;
+		savedShadowSpeed = sspeed;
 		sizeX = startsize;
 		sizeY = startsize;
 		savedSizeX = startsize;
@@ -47,22 +45,29 @@ public class Meteor {
 	}
 	
 	public boolean update(float delta){
+		
 		sizeX-= shadowSpeed;
 		sizeY-= shadowSpeed;
 		if(sizeX < meteorSize){
 			switchToMeteor = true;	
 		}
 		if(sizeX < collisionSize){
+			shadowSpeed = 0;
 			//COLLIDED and reset meteor
+			timer--;
+			
+		}
+		if(timer <= 0){
 			keepUpdating = false;
 		}
-		
 		return keepUpdating;
 	}
 	
 	public void resetMeteor(){
 		sizeX = savedSizeX;
 		sizeY = savedSizeY;
+		timer = timerMax;
+		shadowSpeed = savedShadowSpeed;
 		switchToMeteor = false;
 		keepUpdating = true;
 	}

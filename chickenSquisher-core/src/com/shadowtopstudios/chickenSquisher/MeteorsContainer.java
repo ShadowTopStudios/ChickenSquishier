@@ -1,6 +1,6 @@
 package com.shadowtopstudios.chickenSquisher;
 
-import com.badlogic.gdx.Gdx;
+//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MeteorsContainer {
@@ -24,13 +24,13 @@ public class MeteorsContainer {
 		mUpdateSize = 0;
 
 		for(int i = 0; i < METEOR_ARRAY_SIZE; i++){
-			float sSpeed = (float)Meteor.random(4,6)/10.f;//screen width
-			float mSpeed = (float)Meteor.random(4,6)/10.f;//screen height
-			int startSize = Meteor.random(65,75);
-			int meteorSize = Meteor.random(40,50);
-			int collisionSize = Meteor.random(20,30);
-			int spawnX = Meteor.random(5,85);
-			int spawnY = Meteor.random(5,55);
+			float sSpeed = (float)RandomNumber.random(4,6)/10.f;//screen width
+			float mSpeed = (float)RandomNumber.random(4,6)/10.f;//screen height
+			int startSize = RandomNumber.random(65,75);
+			int meteorSize = RandomNumber.random(40,50);
+			int collisionSize = RandomNumber.random(15,20);
+			int spawnX = RandomNumber.random(5,85);
+			int spawnY = RandomNumber.random(5,55);
 			meteorsArray[i] = new Meteor(i, sSpeed, mSpeed, startSize, spawnX, spawnY, meteorSize, collisionSize);	
 		}
 	}
@@ -39,7 +39,7 @@ public class MeteorsContainer {
 	{
 		if(mUpdateSize < 9)
 		{
-			int num = Meteor.random(0, METEOR_ARRAY_SIZE - 1);
+			int num = RandomNumber.random(0, METEOR_ARRAY_SIZE - 1);
 			while(meteorsArray[num].keepUpdating)
 			{
 				num++;
