@@ -25,12 +25,33 @@ public class Button
 	}
 	public int contains(float x,float y)
 	{
+		//System.out.println(mX);
+		System.out.println(mY);
+		//System.out.println(x);
+		System.out.println(y);
+		System.out.println(y>mY);
+		//System.out.println(mX+mWidth);
+		System.out.println(mY+mHeight);
+		System.out.println(y<(mY+mHeight));
+		boolean haveX=false;
+		boolean haveY=false;
 		if(x > mX && x < (mX+mWidth))
 		{
-			if(y > mY && y < (mY+mHeight))
-			{
-				return mId;
-			}
+			System.out.println("made it through x");
+			haveX = true;
+		}
+		if(y > mY && y < (mY+mHeight))
+		{
+			haveY = true;
+			System.out.println("made itthrough Y");
+			System.out.println("contained");
+			System.out.println();
+		}
+		System.out.println("notContained");
+		System.out.println();
+		if(haveX && haveY)
+		{
+			return mId;
 		}
 		return -1;
 	}

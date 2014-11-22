@@ -23,10 +23,10 @@ public class Fluff extends Particle
 		mSprite = new Sprite(mTexture);
 		this.mSprite.setSize(this.mWidth, this.mHeight);
 		mSprite.setOriginCenter();
-		alphaRate = .0015f+(float) rand.nextInt(20)/100.f;
+		alphaRate = .0021f+(float) rand.nextInt(25)/100.f;
 		mAlpha = 1.f;
 		mSize = 1.f;
-		sizeRate = .05f +(float) rand.nextInt(4)/10.f;
+		sizeRate = .03f +(float) rand.nextInt(4)/10.f;
 	}
 	@Override
 	public boolean update(float delta) {

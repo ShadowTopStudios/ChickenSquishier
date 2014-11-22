@@ -21,7 +21,7 @@ public class Rock extends Particle
 		
 		mWidth = 6.f;
 		mHeight = 9.f;
-		mTexture = new Texture(Gdx.files.internal("meteor2.png"));
+		mTexture = new Texture(Gdx.files.internal("rock.png"));
 		mSprite = new Sprite(mTexture);
 		this.mSprite.setSize(this.mWidth, this.mHeight);
 		mSprite.setOriginCenter();
