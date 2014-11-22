@@ -25,6 +25,9 @@ public class World
 	protected ParticleContainer mFeathers;
 	protected ParticleContainer mRocks;
 	protected MeteorsContainer mMeteorsContainer;
+	
+	protected AudioController audioController;
+	
 	public enum ParticleType
 	{
 		feather,
@@ -56,6 +59,10 @@ public class World
 		mFeatherBatch =new SpriteBatch();
 		mRockBatch = new SpriteBatch();
 		mMeteorsContainer = new MeteorsContainer(this);
+		audioController = new AudioController();
+		audioController.loadAudio();
+		audioController.playBackgroundMusic("yakkity", 0.6f);
+		
 		mRocks = new ParticleContainer(this,ParticleType.rock);
 		switch(type)
 		{
