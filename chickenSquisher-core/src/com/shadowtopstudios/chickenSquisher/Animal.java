@@ -2,8 +2,7 @@ package com.shadowtopstudios.chickenSquisher;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Animal
@@ -17,26 +16,29 @@ public abstract class Animal
 	protected float mRadius;
 	
 	protected float mWidth;
-	protected Texture mTexture;
+	protected Sprite mTexture;
 	protected Touch mParent;
 	protected AnimalContainer mOthers;
 	protected Random rand;
 	protected int mId;
-	
+	protected boolean mAlive=true;
 	protected int mStrength;
 	public boolean mMoving=true;
-	public static final int smallRad = 7;
-	public static final int bigRad = 15;
+	public static final int smallRad = 4;
+	public static final int bigRad = 10;
 	public int mMoveRad = smallRad;
 	public int mTimer;
 	public int mSkitterMax;
 	public int mSkitter;
 	
+	
 	public void draw(SpriteBatch batch)
 	{
 		//batch.draw(mTexture, mX, mY, 0, 0, mWidth, mWidth, 1, 1);
 		//batch.draw(mTexture, mX, mY, mX, mY, mWidth, mWidth, 1.f, 1.f, mAngle, 0, 0, (int)mWidth, (int)mWidth, false, false);
-		batch.draw(mTexture, mX, mY, mWidth, -mWidth);
+		//mTexture.setRotation(mAngle);
+		mTexture.draw(batch);
+		//batch.draw(mTexture, mX, mY, mWidth, -mWidth);
 	}
 	public abstract boolean update(float delta);
 	
@@ -117,11 +119,7 @@ public abstract class Animal
 		id = mOthers.collisionWithOthers(mX+x, mY, mId);
 		if(id !=other && id != mId && id !=-1)
 		{
-			if(distanceFromMe(mX+x,mY)>distanceFromMe(mX,mY))
-			{
-				mX+=x;
-				return x;
-			}
+			
 			return 0.f;
 		}
 		mX+=x;
@@ -135,11 +133,6 @@ public abstract class Animal
 		if(id !=other && id != mId && id !=-1)
 		{
 			//mOthers.mAnimals[id].pleaseMoveY(y,mId);
-			if(distanceFromMe(mX,mY+y)>distanceFromMe(mX,mY))
-			{
-				mY+=y;
-				return y;
-			}
 			return 0.f;
 		}
 		mY+=y;

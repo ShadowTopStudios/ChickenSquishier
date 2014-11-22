@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Chick extends Animal
 {
@@ -17,13 +18,15 @@ public class Chick extends Animal
 		this.mId = id;
 		this.mStrength = id;
 		this.mSpeed = 0.2f + ((float)rand.nextInt(4)/10.f);
-		this.mRadius = 1.0f;
-		this.mWidth = 4.f;
+		this.mRadius = 1.5f;
+		this.mWidth = 6.f;
 		this.mParent = new Touch(-1,-1,-1);
 		this.getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
-		this.mTexture = new Texture(Gdx.files.internal("chickie.png"));
+		this.mTexture = new Sprite(new Texture(Gdx.files.internal("chickie.png")));
+		this.mTexture.setSize(this.mWidth, this.mWidth);
+		mTexture.setOriginCenter();
 		mTimer = 120;
-		mSkitterMax = 10+rand.nextInt(10);
+		mSkitterMax = 20+rand.nextInt(20);
 		mSkitter = mSkitterMax;
 	}
 		
@@ -54,38 +57,31 @@ public class Chick extends Animal
 			mMoveRad = smallRad;
 		}
 		
-		this.mAngle = (this.mAngle-5)+rand.nextInt(10);
+		this.mAngle = (this.mAngle-7)+rand.nextInt(14);
 		this.findSlope();
 		int id = this.moveIfFree();
-		if(id !=-1 && this.mOthers.mAnimals[id].mMoving == false)
-		{
-			float x=this.mOthers.mAnimals[id].pleaseMoveX(mDx, mId);
-			float y=this.mOthers.mAnimals[id].pleaseMoveY(mDy, mId);
-			System.out.println("x is:");
-			System.out.println(x);
-			System.out.println();
-			mX+=x;
-			mY+=y;
-		}
-		else if(id != -1 && this.mOthers.mAnimals[id].getStrength() > mStrength)
+		if(id != -1 && this.mOthers.mAnimals[id].getStrength() > mStrength)
 		{
 			Touch other = this.mOthers.mAnimals[id].getParent();
 			this.mParent.mX = other.mX-2 +rand.nextInt(4);
 			this.mParent.mY = other.mY-2 +rand.nextInt(4);
 			this.mParent.mPointer = other.mPointer;
 		}
-		else if(this.mParent.mPointer == -1 && id !=-1)
+		if(this.mParent.mPointer == -1 && id !=-1)
 		{
 			getRandomParent(mOthers.mWorld.CAMERA_WIDTH,mOthers.mWorld.CAMERA_HEIGHT);
 		}
+		//mTexture.setPosition(0, 0);
+		mTexture.setRotation(mAngle-90);
 		
+		mTexture.setPosition(mX, mY);
 		mSkitter--;
 		if(mSkitter <=0)
 		{
 			mSkitter = mSkitterMax;
 			this.mAngle = this.getAngle(mParent.mX, mParent.mY);
 		}
-		return true;
+		return mAlive;
 		
 	}
 

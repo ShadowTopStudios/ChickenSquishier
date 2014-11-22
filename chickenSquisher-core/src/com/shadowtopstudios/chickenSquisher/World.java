@@ -1,6 +1,8 @@
 package com.shadowtopstudios.chickenSquisher;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class World
@@ -13,6 +15,8 @@ public class World
 	protected SpriteBatch mShadowBatch;
 	protected SpriteBatch mMeteorBatch;
 	protected SpriteBatch mChickBatch;
+	
+	protected Texture mBackground;
 	
 	protected AnimalContainer mAnimals;
 	
@@ -28,16 +32,22 @@ public class World
 		mChickBatch = new SpriteBatch();
 		
 		mAnimals = new AnimalContainer(this);
+		mBackground = new Texture(Gdx.files.internal("Background_desert.png"));
 	}
 	public void update(float delta)
 	{
 		//mMeteorContainer.update(delta);
 		mAnimals.update(delta);
 	}
+	public void checkChicks(float x,float y,float radius)
+	{
+		mAnimals.killChicks(x,y,radius);
+	}
 	public void draw()
 	{
 		mShadowBatch.begin();
 		mShadowBatch.setProjectionMatrix(mCamera.combined);
+		mShadowBatch.draw(mBackground,0,0,CAMERA_WIDTH,CAMERA_HEIGHT);
 		//meteor container draw shadows
 		mShadowBatch.end();
 		

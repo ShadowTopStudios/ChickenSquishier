@@ -10,7 +10,8 @@ public class AnimalContainer
 	public Animal[] mAnimals;
 	protected int[] mUpdateLoop;
 	protected int mUpdateSize=SIZE;
-	protected float mRadRadSquared=3;
+	protected float mRadRadSquared=7;
+	protected float mRadius;
 	
 	public AnimalContainer(World w)
 	{
@@ -27,6 +28,7 @@ public class AnimalContainer
 				index++;
 			}
 		}
+		mRadius = mAnimals[index].mRadius;
 		//mUpdateLoop[index]=index;
 		//mAnimals[index]=new Chick(30,30,this,index);
 		//mUpdateSize = 1;
@@ -44,6 +46,16 @@ public class AnimalContainer
 			}
 		}
 		return -1;
+	}
+	public void killChicks(float x,float y,float rad)
+	{
+		for(int i=0;i<mUpdateSize;i++)
+		{
+			if(mAnimals[mUpdateLoop[i]].distanceFromMe(x,y)<((rad+mRadius)*(rad+mRadius)))
+			{
+				mAnimals[mUpdateLoop[i]].mAlive = false;
+			}
+		}
 	}
 	public void update(float delta)
 	{
