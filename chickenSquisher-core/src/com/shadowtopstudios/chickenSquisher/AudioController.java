@@ -28,4 +28,12 @@ public class AudioController {
 		sound.loop(volume);
 		//sound.play(volume);
 	}
+	
+	public void pause(){
+		sound.pause();
+	}
+	
+	public void resume(){
+		sound.resume();
+	}
 }

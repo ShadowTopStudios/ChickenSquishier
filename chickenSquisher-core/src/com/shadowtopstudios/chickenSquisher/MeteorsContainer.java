@@ -1,6 +1,5 @@
 package com.shadowtopstudios.chickenSquisher;
 
-//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MeteorsContainer {
@@ -62,7 +61,6 @@ public class MeteorsContainer {
 			if(timerSpeed < (timer / 3)){
 				timerSpeed+=0.003f;
 			}
-		//	Gdx.app.log("aaaaaaahhh:", "" + timerSpeed);
 		}
 		
 		int start = 0;
@@ -72,8 +70,7 @@ public class MeteorsContainer {
 			keepUpdating = meteorsArray[randomMeteorArray[start]].update(delta);	
 			if(!keepUpdating){
 				mWorld.checkChicks(meteorsArray[randomMeteorArray[start]].spawnX, meteorsArray[randomMeteorArray[start]].spawnY, (meteorsArray[randomMeteorArray[start]].sizeX / 2));
-				mWorld.audioController.playSoundEffect("explosion", 1.0f); //mWorld.audioController
-				//mWorld.audioController.androidSound.play();
+				mWorld.audioController.playSoundEffect("explosion", 1.0f);
 				randomMeteorArray[start] = randomMeteorArray[mUpdateSize - 1];
 				mUpdateSize--;
 			}else{
@@ -100,4 +97,3 @@ public class MeteorsContainer {
 	}
 }
 
-//Gdx.app.log("aaaaaaahhh:", "" + test);

@@ -1,6 +1,5 @@
 package com.shadowtopstudios.chickenSquisher;
 
-//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -53,9 +52,7 @@ public class Meteor {
 		}
 		if(sizeX < collisionSize){
 			shadowSpeed = 0;
-			//COLLIDED and reset meteor
 			timer--;
-			
 		}
 		if(timer <= 0){
 			keepUpdating = false;
