@@ -6,34 +6,33 @@ import com.badlogic.gdx.audio.Sound;
 
 public class AudioController {
 	
-	public static Sound sound;
-	public static Sound androidSound;
+	public static Sound backgroundMusic;
+	public static Sound androidSoundEffect;
+	public static Sound soundEffect;//unused atm due to android complications
 	
 	public AudioController(){
 		
 	}
 	
 	public void loadAudio(){
-		androidSound = Gdx.audio.newSound(Gdx.files.internal("audio/explosion.ogg"));
+		androidSoundEffect = Gdx.audio.newSound(Gdx.files.internal("audio/explosion.ogg"));
 	}
 	
 	public void playSoundEffect(String soundName, float volume){
-	//	sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundName + ".ogg"));
-		androidSound.play(volume);
+	//	s0ound = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundName + ".ogg"));
+		androidSoundEffect.play(volume);
 	}
 	
 	public void playBackgroundMusic(String soundName, float volume){
-		sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundName + ".ogg"));
-		//long id = sound.play(volume);
-		sound.loop(volume);
-		//sound.play(volume);
+		backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundName + ".ogg"));
+		backgroundMusic.loop(volume);
 	}
 	
 	public void pause(){
-		sound.pause();
+		backgroundMusic.pause();
 	}
 	
 	public void resume(){
-		sound.resume();
+		backgroundMusic.resume();
 	}
 }
