@@ -19,7 +19,7 @@ public class Feather extends Particle
 		mSpeed = 0.005f+(float) rand.nextInt(20)/100.f;
 		mWidth = 2.5f;
 		mHeight = 5.f;
-		mTexture = new Texture(Gdx.files.internal("Feather.png"));
+		mTexture = new Texture(Gdx.files.internal("feather.png"));
 		mSprite = new Sprite(mTexture);
 		this.mSprite.setSize(this.mWidth, this.mHeight);
 		mSprite.setOriginCenter();
